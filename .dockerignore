@@ -1,0 +1,7 @@
+.git
+.github
+**/node_modules
+**/build
+**/__pycache__
+**/.env
+frontend/public/asfaltmoscow-deploy.tar.gz
