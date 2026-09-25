@@ -69,7 +69,7 @@ Email: {contact.email or 'не указан'}
 """
         msg.attach(MIMEText(body, 'plain', 'utf-8'))
 
-        with smtplib.SMTP(smtp_host, smtp_port) as server:
+        with smtplib.SMTP(smtp_host, smtp_port, timeout=15) as server:
             server.starttls()
             server.login(smtp_user, smtp_password)
             server.send_message(msg)
@@ -130,8 +130,10 @@ async def root():
 
 @api_router.post("/contact", response_model=ContactResponse)
 async def submit_contact(contact: ContactRequest):
-    email_sent = send_email_notification(contact)
     telegram_sent = send_telegram_notification(contact)
+    # Telegram is the primary channel. Avoid waiting on a blocked SMTP
+    # connection when the request has already been delivered successfully.
+    email_sent = False if telegram_sent else send_email_notification(contact)
 
     if not email_sent and not telegram_sent:
         raise HTTPException(
