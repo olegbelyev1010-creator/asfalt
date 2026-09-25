@@ -45,8 +45,6 @@
 
         <!-- Canonical -->
         <link rel="canonical" href="https://asfaltmoscow.ru/" />
-        <style>#emergent-badge { display: none !important; }</style>
-
         <title>Асфальтирование в Москве и МО — дороги, дворы, парковки | asfaltmoscow</title>
 
         <!-- Static structured data: available to crawlers before JavaScript runs. -->
@@ -95,30 +93,6 @@
         }
         </script>
         <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
-        <script src="https://assets.emergent.sh/scripts/emergent-main.js"></script>
-        <!--
-        These two scripts have been added for the Visual Edits, please do not edit or remove them
-        -->
-        <script>
-            // Only load visual edit scripts when inside an iframe
-            if (window.self !== window.top) {
-                // Load debug monitor script
-                var debugMonitorScript = document.createElement('script');
-                debugMonitorScript.src = 'https://assets.emergent.sh/scripts/debug-monitor.js';
-                document.head.appendChild(debugMonitorScript);
-
-                // Configure Tailwind
-                window.tailwind = window.tailwind || {};
-                tailwind.config = {
-                    corePlugins: { preflight: false },
-                };
-
-                // Load Tailwind CDN
-                var tailwindScript = document.createElement('script');
-                tailwindScript.src = 'https://cdn.tailwindcss.com';
-                document.head.appendChild(tailwindScript);
-            }
-        </script>
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -133,6 +107,7 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+        <!-- Removed third-party Made with Emergent badge.
         <a
             id="emergent-badge"
             target="_blank"
@@ -177,7 +152,7 @@
             >
                 Made with Emergent
             </p>
-        </a>
+        </a> -->
         <script>
             !(function (t, e) {
                 var o, n, p, r;
