@@ -14,6 +14,25 @@ import axios from 'axios';
 // An empty value keeps the API relative, which works when both are behind one domain.
 const API_URL = process.env.REACT_APP_BACKEND_URL || '';
 
+const formatRussianPhone = (value) => {
+  let digits = value.replace(/\D/g, '');
+
+  if (digits.startsWith('7') || digits.startsWith('8')) {
+    digits = digits.slice(1);
+  }
+
+  digits = digits.slice(0, 10);
+  if (!digits) return '';
+
+  let formatted = '+7';
+  if (digits.length > 0) formatted += ` (${digits.slice(0, 3)}`;
+  if (digits.length >= 3) formatted += ')';
+  if (digits.length > 3) formatted += ` ${digits.slice(3, 6)}`;
+  if (digits.length > 6) formatted += `-${digits.slice(6, 8)}`;
+  if (digits.length > 8) formatted += `-${digits.slice(8, 10)}`;
+  return formatted;
+};
+
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -24,14 +43,26 @@ const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
+    const value = e.target.name === 'phone'
+      ? formatRussianPhone(e.target.value)
+      : e.target.value;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: value
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.phone.replace(/\D/g, '').length !== 11) {
+      toast.error('Проверьте номер телефона', {
+        description: 'Введите полный российский номер телефона'
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -170,6 +201,13 @@ const ContactForm = () => {
                     placeholder="+7 (___) ___-__-__"
                     value={formData.phone}
                     onChange={handleChange}
+                    onFocus={() => {
+                      if (!formData.phone) {
+                        setFormData({ ...formData, phone: '+7 ' });
+                      }
+                    }}
+                    inputMode="tel"
+                    maxLength={18}
                     required
                     className="bg-slate-700 border-slate-600 text-white placeholder:text-gray-500 focus:border-orange-500"
                   />
