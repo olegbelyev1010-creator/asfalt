@@ -4,12 +4,9 @@ from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 import os
 import logging
-import smtplib
 import json
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from pathlib import Path
 from pydantic import BaseModel
 from typing import Optional
@@ -37,48 +34,6 @@ class ContactRequest(BaseModel):
 class ContactResponse(BaseModel):
     success: bool
     message: str
-
-
-# --- Email helper ---
-
-def send_email_notification(contact: ContactRequest):
-    smtp_host = os.environ.get('SMTP_HOST', '')
-    smtp_port = int(os.environ.get('SMTP_PORT', '587'))
-    smtp_user = os.environ.get('SMTP_USER', '')
-    smtp_password = os.environ.get('SMTP_PASSWORD', '')
-    notify_email = os.environ.get('NOTIFY_EMAIL', '')
-
-    if not smtp_password or not smtp_user:
-        logger.warning("SMTP not configured (no password). Email not sent.")
-        return False
-
-    try:
-        msg = MIMEMultipart()
-        msg['From'] = smtp_user
-        msg['To'] = notify_email
-        msg['Subject'] = f"Новая заявка с сайта от {contact.name}"
-
-        body = f"""Новая заявка с сайта asfaltmoscow!
-
-Имя: {contact.name}
-Телефон: {contact.phone}
-Email: {contact.email or 'не указан'}
-Сообщение: {contact.message or 'не указано'}
-
-Дата: {datetime.now(timezone.utc).strftime('%d.%m.%Y %H:%M')} UTC
-"""
-        msg.attach(MIMEText(body, 'plain', 'utf-8'))
-
-        with smtplib.SMTP(smtp_host, smtp_port, timeout=15) as server:
-            server.starttls()
-            server.login(smtp_user, smtp_password)
-            server.send_message(msg)
-
-        logger.info(f"Email sent to {notify_email}")
-        return True
-    except Exception as e:
-        logger.error(f"Email send failed: {e}")
-        return False
 
 
 def send_telegram_notification(contact: ContactRequest):
@@ -131,20 +86,14 @@ async def root():
 @api_router.post("/contact", response_model=ContactResponse)
 async def submit_contact(contact: ContactRequest):
     telegram_sent = send_telegram_notification(contact)
-    # Telegram is the primary channel. Avoid waiting on a blocked SMTP
-    # connection when the request has already been delivered successfully.
-    email_sent = False if telegram_sent else send_email_notification(contact)
 
-    if not email_sent and not telegram_sent:
+    if not telegram_sent:
         raise HTTPException(
             status_code=503,
-            detail="Не удалось отправить заявку. Проверьте настройки уведомлений."
+            detail="Не удалось отправить заявку в Telegram. Проверьте настройки бота."
         )
 
-    logger.info(
-        f"Contact request delivered: {contact.name} / {contact.phone} "
-        f"(email={email_sent}, telegram={telegram_sent})"
-    )
+    logger.info(f"Contact request delivered to Telegram: {contact.name} / {contact.phone}")
 
     return ContactResponse(
         success=True,
