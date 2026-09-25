@@ -1,22 +1,19 @@
 # Быстрый деплой на Railway
 
-Для быстрого запуска используйте один сервис из корня репозитория. Корневой `Dockerfile` сначала собирает React, затем запускает FastAPI и раздаёт frontend с того же домена. Поэтому `REACT_APP_BACKEND_URL` не требуется.
+Для быстрого запуска используйте один сервис из корня репозитория. Корневой `Dockerfile` сначала собирает React, затем запускает FastAPI и раздаёт frontend с того же домена. Поэтому `REACT_APP_BACKEND_URL` и база данных не требуются.
 
 ## Быстрый сценарий
 
 1. В Railway выберите **Deploy from GitHub repo**.
 2. Выберите репозиторий `olegbelyev1010-creator/asfalt` и ветку `railway-deploy`.
 3. Оставьте Root Directory пустым (`/`). Railway использует корневой `Dockerfile` и `railway.json`.
-4. Добавьте MongoDB в проект Railway или используйте MongoDB Atlas.
-5. Добавьте переменные в сервис приложения:
+4. Добавьте переменные SMTP в сервис приложения:
 
-## 2. Backend variables
+## Переменные Railway
 
-В Backend добавьте:
+В сервис приложения добавьте:
 
 ```text
-MONGO_URL=<MongoDB connection string>
-DB_NAME=asfaltmoscow
 CORS_ORIGINS=*
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
@@ -25,7 +22,7 @@ SMTP_PASSWORD=<Gmail App Password>
 NOTIFY_EMAIL=asfaltkamen@gmail.com
 ```
 
-6. Нажмите **Deploy** и сгенерируйте публичный домен в настройках сервиса.
+5. Нажмите **Deploy** и сгенерируйте публичный домен в настройках сервиса.
 
 После деплоя:
 

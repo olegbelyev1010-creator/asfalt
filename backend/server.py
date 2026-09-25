@@ -1,25 +1,19 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List, Optional
-import uuid
+from pydantic import BaseModel
+from typing import Optional
 from datetime import datetime, timezone
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
-
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
 
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
@@ -30,17 +24,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-
-# --- Models ---
-
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
-class StatusCheckCreate(BaseModel):
-    client_name: str
 
 class ContactRequest(BaseModel):
     name: str
@@ -101,56 +84,22 @@ Email: {contact.email or 'не указан'}
 async def root():
     return {"message": "Hello World"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
-
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    return status_checks
-
 @api_router.post("/contact", response_model=ContactResponse)
 async def submit_contact(contact: ContactRequest):
-    doc = {
-        "id": str(uuid.uuid4()),
-        "name": contact.name,
-        "phone": contact.phone,
-        "email": contact.email or "",
-        "message": contact.message or "",
-        "created_at": datetime.now(timezone.utc).isoformat(),
-        "email_sent": False
-    }
-
-    await db.contact_requests.insert_one(doc)
-    logger.info(f"Contact request saved: {contact.name} / {contact.phone}")
-
     email_sent = send_email_notification(contact)
 
-    if email_sent:
-        await db.contact_requests.update_one(
-            {"id": doc["id"]},
-            {"$set": {"email_sent": True}}
+    if not email_sent:
+        raise HTTPException(
+            status_code=503,
+            detail="Не удалось отправить заявку. Попробуйте ещё раз позже."
         )
+
+    logger.info(f"Contact request emailed: {contact.name} / {contact.phone}")
 
     return ContactResponse(
         success=True,
         message="Заявка принята! Мы свяжемся с вами в ближайшее время."
     )
-
-@api_router.get("/contacts", response_model=list)
-async def get_contacts():
-    contacts = await db.contact_requests.find({}, {"_id": 0}).to_list(1000)
-    return contacts
-
 
 app.include_router(api_router)
 
@@ -168,7 +117,3 @@ app.add_middleware(
 FRONTEND_BUILD_DIR = ROOT_DIR.parent / "frontend" / "build"
 if FRONTEND_BUILD_DIR.is_dir():
     app.mount("/", StaticFiles(directory=FRONTEND_BUILD_DIR, html=True), name="frontend")
-
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    client.close()
