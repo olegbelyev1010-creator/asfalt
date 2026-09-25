@@ -62,6 +62,7 @@
   },
   "scripts": {
     "start": "craco start",
+    "railway:start": "node server.js",
     "build": "craco build",
     "test": "craco test"
   },

@@ -10,7 +10,9 @@ import { companyInfo } from '../data/mock';
 import { toast } from 'sonner';
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+// Set REACT_APP_BACKEND_URL for a separate Railway backend service.
+// An empty value keeps the API relative, which works when both are behind one domain.
+const API_URL = process.env.REACT_APP_BACKEND_URL || '';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
