@@ -1,0 +1,26 @@
+# Dependencies
+frontend/node_modules/
+frontend/.yarn/
+
+# Build and tooling output
+frontend/build/
+frontend/.cache/
+frontend/coverage/
+frontend/public/asfaltmoscow-deploy.tar.gz
+
+# Environment files and secrets
+backend/.env
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# Local/editor/system files
+.DS_Store
+.idea/
+.vscode/
+*.log
+
+# Python local environments and caches
+backend/venv/
+backend/__pycache__/
+*.py[cod]

@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Запретить индексацию служебных директорий
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*.json$
+
+# Основная карта сайта
+Sitemap: https://asfalt-preview.preview.emergentagent.com/sitemap.xml
+
+# Яндекс
+User-agent: Yandex
+Allow: /
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+# Время обхода (секунды между запросами)
+Crawl-delay: 1

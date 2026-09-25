@@ -1,0 +1,20 @@
+# Systemd сервис для backend
+# Файл: /etc/systemd/system/asfaltmoscow-backend.service
+
+[Unit]
+Description=Asphalt Moscow Backend (FastAPI)
+After=network.target mongod.service
+Wants=mongod.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/asfaltmoscow/backend
+Environment=PATH=/var/www/asfaltmoscow/backend/venv/bin:/usr/bin
+ExecStart=/var/www/asfaltmoscow/backend/venv/bin/uvicorn server:app --host 127.0.0.1 --port 8001
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
