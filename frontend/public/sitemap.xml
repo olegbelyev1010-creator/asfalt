@@ -1,53 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  
-  <!-- Главная страница -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://asfalt-preview.preview.emergentagent.com/</loc>
-    <lastmod>2025-02-24</lastmod>
+    <loc>https://asfaltmoscow.ru/</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  
-  <!-- Услуги -->
-  <url>
-    <loc>https://asfalt-preview.preview.emergentagent.com/#services</loc>
-    <lastmod>2025-02-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
-  <!-- Портфолио -->
-  <url>
-    <loc>https://asfalt-preview.preview.emergentagent.com/#portfolio</loc>
-    <lastmod>2025-02-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- Калькулятор -->
-  <url>
-    <loc>https://asfalt-preview.preview.emergentagent.com/#calculator</loc>
-    <lastmod>2025-02-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Отзывы -->
-  <url>
-    <loc>https://asfalt-preview.preview.emergentagent.com/#testimonials</loc>
-    <lastmod>2025-02-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Контакты -->
-  <url>
-    <loc>https://asfalt-preview.preview.emergentagent.com/#contacts</loc>
-    <lastmod>2025-02-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
 </urlset>

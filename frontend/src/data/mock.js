@@ -5,7 +5,7 @@ export const companyInfo = {
   phone: "+7 (977) 992-84-55",
   phoneRaw: "79779928455",
   email: "asfaltkamen@gmail.com",
-  address: "Москва, ул. Примерная, д. 1",
+  address: "Москва и Московская область",
   workingHours: "Пн-Вс: 8:00 - 20:00",
   whatsapp: "79779928455",
   telegram: "+79779928455"
