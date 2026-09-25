@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 import { companyInfo } from '../data/mock';
 
 const Footer = () => {
@@ -28,17 +28,6 @@ const Footer = () => {
             <p className="text-gray-400 mb-4">
               Профессиональное асфальтирование дорог, дворов и территорий в Москве и Московской области с 2009 года.
             </p>
-            <div className="flex space-x-3">
-              <a href="#" className="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-lg flex items-center justify-center transition-colors">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-lg flex items-center justify-center transition-colors">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-lg flex items-center justify-center transition-colors">
-                <Youtube className="w-5 h-5" />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}

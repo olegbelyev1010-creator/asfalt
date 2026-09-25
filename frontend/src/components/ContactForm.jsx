@@ -132,19 +132,6 @@ const ContactForm = () => {
               </CardContent>
             </Card>
 
-            {/* Map placeholder */}
-            <Card className="bg-slate-800 border-slate-700 overflow-hidden">
-              <div className="h-64 bg-slate-700 flex items-center justify-center relative">
-                <MapPin className="w-16 h-16 text-orange-500/30" />
-                <div className="absolute inset-0 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm">
-                  <div className="text-center">
-                    <MapPin className="w-12 h-12 text-orange-500 mx-auto mb-2" />
-                    <p className="text-white font-semibold">Карта</p>
-                    <p className="text-gray-400 text-sm">Google Maps интеграция</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
           </div>
 
           {/* Contact Form */}
