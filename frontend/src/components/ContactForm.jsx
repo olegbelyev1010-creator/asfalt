@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Input } from './ui/input';
@@ -33,7 +33,7 @@ const formatRussianPhone = (value) => {
   return formatted;
 };
 
-const ContactForm = () => {
+const ContactForm = ({ requestContext = '' }) => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -41,6 +41,12 @@ const ContactForm = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (requestContext) {
+      setFormData((current) => ({ ...current, message: requestContext }));
+    }
+  }, [requestContext]);
 
   const handleChange = (e) => {
     const value = e.target.name === 'phone'

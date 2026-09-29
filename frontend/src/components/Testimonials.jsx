@@ -3,6 +3,7 @@ import { Star } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { Avatar, AvatarFallback } from './ui/avatar';
+import { Button } from './ui/button';
 import { testimonials } from '../data/mock';
 
 const Testimonials = () => {
@@ -16,7 +17,7 @@ const Testimonials = () => {
             Что говорят о нас наши клиенты
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Более 450 довольных клиентов доверили нам свои проекты
+            Реальные отзывы клиентов на Profi.ru
           </p>
         </div>
 
@@ -56,6 +57,14 @@ const Testimonials = () => {
                     <div className="font-semibold text-slate-900">{testimonial.name}</div>
                     <div className="text-sm text-gray-600">{testimonial.company}</div>
                     <div className="text-xs text-gray-500 mt-1">{testimonial.date}</div>
+                    <a
+                      href={testimonial.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block text-xs text-orange-600 hover:text-orange-700 hover:underline mt-2"
+                    >
+                      Читать отзыв на Profi.ru
+                    </a>
                   </div>
                 </div>
               </CardContent>
@@ -71,21 +80,31 @@ const Testimonials = () => {
                 <Star className="w-6 h-6 text-white fill-white" />
               </div>
               <div className="text-left">
-                <div className="text-3xl font-bold text-slate-900">4.9/5.0</div>
+                <div className="text-3xl font-bold text-slate-900">5.0/5.0</div>
                 <div className="text-sm text-gray-600">Средняя оценка</div>
               </div>
             </div>
             <div className="w-px h-12 bg-slate-300 hidden md:block"></div>
             <div className="text-center md:text-left">
-              <div className="text-3xl font-bold text-slate-900">450+</div>
-              <div className="text-sm text-gray-600">Довольных клиентов</div>
-            </div>
-            <div className="w-px h-12 bg-slate-300 hidden md:block"></div>
-            <div className="text-center md:text-left">
-              <div className="text-3xl font-bold text-slate-900">98%</div>
-              <div className="text-sm text-gray-600">Рекомендуют нас</div>
+              <div className="text-3xl font-bold text-slate-900">100%</div>
+              <div className="text-sm text-gray-600">Положительных отзывов</div>
             </div>
           </div>
+        </div>
+
+        <div className="mt-10 rounded-2xl bg-slate-900 px-6 py-8 sm:px-10 text-center">
+          <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+            Нужен точный расчёт по вашему объекту?
+          </h3>
+          <p className="text-gray-400 mb-5">
+            Оставьте заявку — специалист уточнит детали и подготовит расчёт.
+          </p>
+          <Button
+            onClick={() => document.getElementById('contacts')?.scrollIntoView({ behavior: 'smooth' })}
+            className="bg-orange-500 hover:bg-orange-600 text-white"
+          >
+            Получить консультацию
+          </Button>
         </div>
       </div>
     </section>

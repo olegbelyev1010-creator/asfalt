@@ -6,6 +6,7 @@ import Hero from "./components/Hero";
 import Services from "./components/Services";
 import Advantages from "./components/Advantages";
 import Portfolio from "./components/Portfolio";
+import Process from "./components/Process";
 import Calculator from "./components/Calculator";
 import Testimonials from "./components/Testimonials";
 import ContactForm from "./components/ContactForm";
@@ -15,6 +16,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 function App() {
+  const [requestContext, setRequestContext] = React.useState('');
+
   useEffect(() => {
     AOS.init({
       duration: 800,
@@ -30,11 +33,12 @@ function App() {
       <main>
         <Hero />
         <Services />
-        <Advantages />
         <Portfolio />
-        <Calculator />
+        <Advantages />
         <Testimonials />
-        <ContactForm />
+        <Process />
+        <Calculator onRequestEstimate={setRequestContext} />
+        <ContactForm requestContext={requestContext} />
       </main>
       <Footer />
       <FloatingButtons />

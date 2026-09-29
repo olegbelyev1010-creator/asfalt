@@ -8,7 +8,7 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { calculatorPrices } from '../data/mock';
 
-const Calculator = () => {
+const Calculator = ({ onRequestEstimate }) => {
   const [serviceType, setServiceType] = useState('courtyard');
   const [area, setArea] = useState('');
   const [totalCost, setTotalCost] = useState(null);
@@ -152,7 +152,13 @@ const Calculator = () => {
                 <div className="mt-6 text-center">
                   <p className="text-gray-600 mb-4">Хотите получить точный расчет?</p>
                   <Button
-                    onClick={() => {
+                  onClick={() => {
+                      const selectedService = serviceOptions.find(s => s.value === serviceType);
+                      if (onRequestEstimate && totalCost !== null) {
+                        onRequestEstimate(
+                          `Здравствуйте! Нужен расчёт по услуге «${selectedService.label}». Площадь — ${area} м². Предварительная стоимость — ${totalCost.toLocaleString('ru-RU')} ₽.`
+                        );
+                      }
                       const element = document.getElementById('contacts');
                       if (element) element.scrollIntoView({ behavior: 'smooth' });
                     }}

@@ -2,11 +2,10 @@ import React, { useEffect } from 'react';
 import { ArrowRight, CheckCircle, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion } from 'framer-motion';
-import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
 
 const Hero = () => {
-  const [ref, inView] = useInView({
+  const [ref] = useInView({
     triggerOnce: true,
     threshold: 0.1
   });
@@ -178,40 +177,6 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Animated Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mt-12 sm:mt-16 md:mt-20 max-w-4xl mx-auto px-4"
-          >
-            {[
-              { value: 15, suffix: '+', label: 'лет на рынке' },
-              { value: 500, suffix: '+', label: 'завершенных объектов' },
-              { value: 98, suffix: '%', label: 'довольных клиентов' },
-              { value: 24, suffix: '/7', label: 'поддержка клиентов' }
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 1.4 + index * 0.1 }}
-                whileHover={{ scale: 1.1, y: -10 }}
-                className="text-center group cursor-pointer"
-              >
-                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-orange-500 mb-1 sm:mb-2 group-hover:text-orange-400 transition-colors">
-                  {inView && (
-                    <CountUp
-                      end={stat.value}
-                      duration={2.5}
-                      suffix={stat.suffix}
-                    />
-                  )}
-                </div>
-                <div className="text-gray-400 text-xs sm:text-sm group-hover:text-gray-300 transition-colors leading-tight">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
         </div>
       </div>
 

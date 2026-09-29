@@ -18,7 +18,7 @@ const Portfolio = () => {
             Реализованные проекты
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-            Более 500 успешно завершенных объектов в Москве и Московской области
+            Примеры работ по асфальтированию и благоустройству в Москве и Московской области
           </p>
         </div>
 
@@ -94,20 +94,20 @@ const Portfolio = () => {
         {/* Stats Section */}
         <div className="mt-16 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
           <div className="text-center">
-            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 mb-2">500+</div>
-            <div className="text-gray-400">Проектов реализовано</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 mb-2">15+</div>
+            <div className="text-gray-400">лет опыта</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 mb-2">250 000+</div>
-            <div className="text-gray-400">м² асфальта уложено</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 mb-2">5 лет</div>
+            <div className="text-gray-400">гарантии на работы</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 mb-2">15</div>
-            <div className="text-gray-400">единиц спецтехники</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 mb-2">24/7</div>
+            <div className="text-gray-400">можно оставить заявку</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 mb-2">100%</div>
-            <div className="text-gray-400">гарантия качества</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 mb-2">Москва</div>
+            <div className="text-gray-400">и Московская область</div>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, MessageCircle, Send, X } from 'lucide-react';
+import { Phone, MessageCircle, X } from 'lucide-react';
 import { companyInfo } from '../data/mock';
 
 const FloatingButtons = () => {
@@ -23,11 +23,11 @@ const FloatingButtons = () => {
       delay: 'delay-100'
     },
     {
-      id: 'telegram',
-      icon: Send,
-      label: 'Telegram',
-      href: `https://t.me/${companyInfo.telegram}`,
-      bgColor: 'bg-blue-500 hover:bg-blue-600',
+      id: 'max',
+      icon: MessageCircle,
+      label: 'MAX: +7 (977) 992-84-55',
+      href: 'https://max.ru/',
+      bgColor: 'bg-sky-500 hover:bg-sky-600',
       delay: 'delay-150'
     }
   ];
